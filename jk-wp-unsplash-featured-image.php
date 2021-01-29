@@ -1,6 +1,8 @@
 <?php defined('ABSPATH') || exit;
 
-final class JK_WP_UNSPLASH_FEATURED_IMAGE
+$path = __DIR__;
+
+final class jk_wp_unsplash_featured_image
 {
 
     public function init()
