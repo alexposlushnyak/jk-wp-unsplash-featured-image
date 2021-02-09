@@ -222,6 +222,61 @@ class jk_wp_unsplash_featured_image
 
     }
 
+    public function set_features()
+    {
+
+        global $wpdb;
+
+        $post_id = $_POST['post_id'];
+
+        $image_url = $_POST['download_link'];
+
+        $file_name = $_POST['file_name'];
+
+        $image_data = file_get_contents($image_url);
+
+        $upload_dir = wp_upload_dir();
+
+        $filename = $upload_dir['path'] . '/' . $file_name . '.jpg';
+
+        file_put_contents($filename, $image_data);
+
+        $filetype = wp_check_filetype(basename($filename), null);
+
+        $wp_upload_dir = wp_upload_dir();
+
+        $image_src = $wp_upload_dir['url'] . '/' . basename($filename);
+
+        $query = "SELECT COUNT(*) FROM {$wpdb->posts} WHERE guid='$image_src'";
+
+        $count = intval($wpdb->get_var($query));
+
+        if (!$count):
+
+            $attachment = array(
+                'guid' => $wp_upload_dir['url'] . '/' . basename($filename),
+                'post_mime_type' => $filetype['type'],
+                'post_title' => preg_replace('/\.[^.]+$/', '', basename($filename)),
+                'post_content' => '',
+                'post_status' => 'inherit'
+            );
+
+            $attach_id = wp_insert_attachment($attachment, $filename);
+
+            require_once(ABSPATH . 'wp-admin/includes/image.php');
+
+            $attach_data = wp_generate_attachment_metadata($attach_id, $filename);
+
+            wp_update_attachment_metadata($attach_id, $attach_data);
+
+            set_post_thumbnail($post_id, $attach_id);
+
+        endif;
+
+        die();
+
+    }
+
     public static function item_render($item)
     {
 
@@ -313,6 +368,27 @@ class jk_wp_unsplash_featured_image
         <?php
 
         endif;
+
+    }
+
+    public function ajax_init()
+    {
+
+        add_action('wp_ajax_nopriv_jk_unsplash_panel_render', [$this, 'panel_render']);
+
+        add_action('wp_ajax_jk_unsplash_panel_render', [$this, 'panel_render']);
+
+        add_action('wp_ajax_nopriv_jk_unsplash_modal_render', [$this, 'modal_render']);
+
+        add_action('wp_ajax_jk_unsplash_modal_render', [$this, 'modal_render']);
+
+        add_action('wp_ajax_nopriv_jk_unsplash_search_render', [$this, 'search_render']);
+
+        add_action('wp_ajax_jk_unsplash_search_render', [$this, 'search_render']);
+
+        add_action('wp_ajax_nopriv_jk_unsplash_set_features', [$this, 'set_features']);
+
+        add_action('wp_ajax_jk_unsplash_set_features', [$this, 'set_features']);
 
     }
 
