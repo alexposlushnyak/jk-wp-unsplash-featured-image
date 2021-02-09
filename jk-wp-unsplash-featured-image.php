@@ -222,4 +222,98 @@ class jk_wp_unsplash_featured_image
 
     }
 
+    public static function item_render($item)
+    {
+
+        if (!empty($item)):
+
+            $id = $item->id;
+
+            $created_at = $item->created_at;
+
+            $updated_at = $item->updated_at;
+
+            $w = $item->width;
+
+            $h = $item->height;
+
+            $avarage_color = $item->color;
+
+            $description = $item->description;
+
+            $alt_description = $item->alt_description;
+
+            $urls = $item->urls;
+
+            $links = $item->links;
+
+            $likes = $item->likes;
+
+            $user_name = $item->user->name;
+
+            $user_link = $item->user->links->html;
+
+            $user_avatar = $item->user->profile_image->medium;
+
+            $app_name = 'JK-Studio';
+
+            $app_name = urlencode($app_name);
+
+            ?>
+
+            <div class="grid-item">
+
+                <div class="grid-item-inner-wrapper"
+                     data-item-download="<?php echo esc_html($links->download); ?>"
+                     data-item-image="<?php echo esc_html($urls->regular); ?>"
+                     data-item-name="<?php echo esc_html($id); ?>">
+
+                    <span class="plus-icon">
+
+                        <i class="fas fa-plus"></i>
+
+                    </span>
+
+                    <div class="author-wrapper">
+
+                        <a class="author-avatar" href="<?php echo esc_url($user_link); ?>">
+
+                            <img src="<?php echo esc_url($user_avatar); ?>" alt="<?php echo esc_attr($user_name); ?>">
+
+                        </a>
+
+                        <span class="author-name">
+
+                            <?php echo esc_html('Photo by'); ?>
+
+                            <a href="<?php echo esc_url($user_link); ?>">
+
+                                <?php echo esc_html($user_name); ?>
+
+                            </a>
+
+                            <?php echo esc_html('on'); ?>
+
+                            <a href="<?php echo esc_url('https://unsplash.com/?utm_source=' . $app_name . '&utm_medium=referral'); ?>">
+
+                                <?php echo esc_html('Unsplash') ?>
+
+                            </a>
+
+                        </span>
+
+                    </div>
+
+                    <img src="<?php echo esc_url($urls->regular); ?>" alt="<?php echo esc_attr($alt_description); ?>">
+
+                </div>
+
+            </div>
+
+        <?php
+
+        endif;
+
+    }
+
 }
