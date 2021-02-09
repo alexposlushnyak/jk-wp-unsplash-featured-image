@@ -61,4 +61,137 @@ class jk_wp_unsplash_featured_image
 
     }
 
+    public function modal_render()
+    {
+
+        ?>
+
+        <div class="unsplash-images-modal hide-modal">
+
+            <div class="modal-window">
+
+                <div class="close-window-button">
+
+                    <i class="fa fa-times"></i>
+
+                </div>
+
+                <div class="inner-wrapper">
+
+                    <div class="search-form-wrapper">
+
+                        <div class="unsplash-icon-logo">
+
+                            <i class="fab fa-unsplash"></i>
+
+                        </div>
+
+                        <div class="search-form">
+
+                            <input type="text" class="search-field"
+                                   placeholder="<?php echo esc_html('Enter some keywords and press Enter...'); ?>"
+                                   value="">
+
+                        </div>
+
+                    </div>
+
+                    <div class="search-body-wrapper">
+
+                        <div class="isotope-grid-wrapper">
+
+                            <div class="isotope-grid">
+
+                            </div>
+
+                        </div>
+
+                        <div class="image-modal-wrapper hide">
+
+                            <div class="image-modal">
+
+                                <div class="button-wrapper">
+
+                                    <button class="jk-button set-button">
+
+                                        <?php echo esc_html('Set as Featured'); ?>
+
+                                        <i class="fab fa-unsplash"></i>
+
+                                    </button>
+
+                                </div>
+
+                                <div class="image-inner">
+
+                                </div>
+
+                                <div class="close-image-window-button">
+
+                                    <i class="fa fa-times"></i>
+
+                                </div>
+
+                            </div>
+
+                            <div class="after-set-box hide">
+
+                                <i class="fa fa-spinner"></i>
+
+                            </div>
+
+                        </div>
+
+                        <div class="loading-message-wrapper hide">
+
+                            <span class="loading-message">
+
+                        <i class="fab fa-unsplash"></i>
+
+                        <?php echo esc_html('Loading Images...'); ?>
+
+                    </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer-wrapper">
+
+                        <div class="footer-inner hide">
+
+                            <button class="load-more-button">
+
+                                <span class="text-part">
+
+                                    <?php echo esc_html('Load More'); ?>
+
+                                    <i class="fa fa-angle-down"></i>
+
+                                </span>
+
+                                <span class="loading-part hide">
+
+                                    <i class="fas fa-spinner"></i>
+
+                                </span>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <?php
+
+        die();
+
+    }
+
 }
