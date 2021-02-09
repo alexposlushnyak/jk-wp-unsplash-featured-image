@@ -194,4 +194,32 @@ class jk_wp_unsplash_featured_image
 
     }
 
+    public function search_render()
+    {
+
+        $query = urlencode($_POST['query']);
+
+        $page = $_POST['page'];
+
+        $response = JK_Unsplash_API_Handler::make_request_to_api(array(
+            'token' => '5d139fKDQXGz8Rlj-ZRTyaDUf2zhL-4Z1zaI11vPGOE',
+            'secret' => 'YhqdWDaG5ZwTSKI4ibSZHYWiVor4M-IeSHqgZ4AOo1s',
+            'page' => $page,
+            'per_page' => '50',
+            'order_by' => 'popular',
+            'query' => $query
+        ));
+
+        $items = $response->results;
+
+        foreach ($items as $item):
+
+            self::item_render($item);
+
+        endforeach;
+
+        die();
+
+    }
+
 }
